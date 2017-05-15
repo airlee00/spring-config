@@ -1,0 +1,88 @@
+server:
+    port: 8090
+
+framexpert.run.oltp.sample:
+    root: /logs/files
+    root.logs : /logs
+       
+framexpert.run.common:
+    # System Key
+    sysKey: 1
+    # HOST ID
+    hostname: corapv01
+    # Was Instance ID
+    guid.support.DefaultGuidManager.wasInstanceId: KRNG00101
+
+    # Trace Log Helper
+    logging:
+        trace:
+            TraceLogHelper:
+                traceLogEnabled: true
+                useCacheEnabled: true
+                saveXmlEnabled: true
+                serviceControllerClass: framexpert.run.oltp.core.controller.support.DefaultServiceController
+    # Logging Directory Path
+    debugLog.filename: ${framexpert.run.oltp.sample.root.logs}/WEB-INF/framexpert/log/debug/debug
+    errorLog.filename: ${framexpert.run.oltp.sample.root.logs}/WEB-INF/framexpert/log/error/error
+    callLog.filename: ${framexpert.run.oltp.sample.root.logs}/WEB-INF/framexpert/log/call/call
+    performanceLog.filename: ${framexpert.run.oltp.sample.root.logs}/WEB-INF/framexpert/log/pref/pref
+    traceLog.filename: ${framexpert.run.oltp.sample.root.logs}/WEB-INF/framexpert/log/trace/trace
+      
+    # Biz Cache Manager
+    cache.bizcache.BizCacheManager:
+        earlyLoadingEnabled: true
+  
+
+# Task Executor Pool Size
+taskExecutor.pool-size: 5
+
+context:
+    # Base Package/Path of Business Component & Mapper for Auto-Scan
+    business:
+        base-package: framexpert.run.oltp.sample
+        base-path: /framexpert/run/oltp/sample
+
+     # Runtime Environment Variable
+    env: local
+    db: oracle
+    
+    # DataSource
+    database.datasource:
+        businessDataSource:
+            jndi: framexpert_sample_biz
+            url: jdbc:oracle:thin:@127.0.0.1:1521:xe
+            username: hr
+            password: hr
+          
+        frameworkDataSource:
+            jndi: framexpert_sample
+            url: jdbc:oracle:thin:@127.0.0.1:1521:xe
+            username: hr
+            password: hr
+    
+framexpert.run.oltp.core:
+    # Component Test Variables
+    test.support:
+        OltpComponentTester:
+          clientIP: 127.0.0.1
+          clientMACAddress: aabbccddeeff
+          screenId: NoScreen
+          serviceId: COMPTEST000
+          userId: COMPTEST
+
+    # Service Controller Properties
+    controller.support.DefaultServiceController:
+        defaultTransactionTimeOut: 120
+        allServiceEnabled: true
+        serviceEnableCheckEnabled: true
+  
+    check.support:
+        # Service Enable Checker
+        DefaultServiceEnableChecker.defaultServiceEnabled: false
+  
+        # Service Control Checker
+        DefaultServiceControlChecker:
+            serviceControlCheckEnabled: false
+            useCacheEnabled: true
+
+    

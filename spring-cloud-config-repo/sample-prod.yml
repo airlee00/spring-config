@@ -1,0 +1,3 @@
+sample:
+  foo: 'this is dev foo'
+  bar: '===is prod bar'

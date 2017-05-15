@@ -1,0 +1,6 @@
+---
+applications:
+- name: spring-config-repo
+  memory: 100M
+  instances: 1
+  random-route: true
